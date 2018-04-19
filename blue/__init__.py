@@ -14,4 +14,4 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 from .blue import BLUE
-from .matrices import Measurements, CovarianceMatrix
+from .matrices import Measurements, Errors, CovarianceMatrix

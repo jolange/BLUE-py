@@ -24,6 +24,14 @@ class Measurements(np.matrix):
         return instance
 
 
+class Errors(np.matrix):
+
+    def __new__(cls, *args, **kwargs):
+        instance = super(Errors, cls).__new__(cls, *args, **kwargs)
+        assert instance.shape[0] == 1, 'error vector must be one-dimensional'
+        return instance
+
+
 class CovarianceMatrix(np.matrix):
 
     def __new__(cls, *args, **kwargs):
@@ -31,3 +39,18 @@ class CovarianceMatrix(np.matrix):
         dim = instance.shape
         assert dim[0] == dim[1], 'covariance matrix needs to be square'
         return instance
+
+    @classmethod
+    def from_correlation_matrix(cls, errors, rho):
+        errors = Errors(errors)
+        n = errors.shape[1]
+        rho = np.matrix(rho)
+        assert rho.shape == (n, n), '%d measurements, but rho is of dim %s' % (n, str(E.shape))
+
+        # create the covariance matrix
+        cov = np.zeros((n, n))
+        for i in range(n):
+            for j in range(n):
+                cov[i, j] = rho[i, j] * errors[0, i] * errors[0, j]
+
+        return cls.__new__(cls, cov)

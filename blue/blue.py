@@ -14,11 +14,14 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 import numpy as np
+from . import matrices
 
 
 class BLUE:
 
     def __init__(self, y, E):
+        assert isinstance(y, matrices.Measurements)
+        assert isinstance(E, matrices.CovarianceMatrix)
         n = y.shape[1]
         assert E.shape == (n, n), '%d measurements, but E is of dim %s' % (n, str(E.shape))
         U = np.ones((n, 1))
