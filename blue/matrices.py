@@ -42,7 +42,7 @@ class CovarianceMatrix(np.matrix):
         return instance
 
     @classmethod
-    def from_correlation_matrix(cls, errors, rho):
+    def from_correlation_matrix(cls, errors, rho, reduce_correlations=False):
         errors = Errors(errors)
         n = errors.shape[1]
         rho = np.matrix(rho)
@@ -52,7 +52,13 @@ class CovarianceMatrix(np.matrix):
         cov = np.zeros((n, n))
         for i in range(n):
             for j in range(n):
-                cov[i, j] = rho[i, j] * errors[0, i] * errors[0, j]
+                corr = rho[i, j]
+                if reduce_correlations and corr == 1.0:
+                    # reduce correlation to rho = sigma_X/sigma_Y,
+                    # assuming sigma_X <= sigma_Y
+                    cov[i, j] = min(errors[0, i], errors[0, j])**2
+                else:
+                    cov[i, j] = corr * errors[0, i] * errors[0, j]
 
         return cls.__new__(cls, cov)
 
