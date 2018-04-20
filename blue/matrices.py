@@ -13,6 +13,7 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+import math
 import numpy as np
 
 
@@ -54,3 +55,13 @@ class CovarianceMatrix(np.matrix):
                 cov[i, j] = rho[i, j] * errors[0, i] * errors[0, j]
 
         return cls.__new__(cls, cov)
+
+    def correlation_matrix(self):
+        corr = np.zeros(self.shape)
+        n = self.shape[0]
+        for i in range(n):
+            sigma_i = math.sqrt(self[i, i])
+            for j in range(n):
+                sigma_j = math.sqrt(self[j, j])
+                corr[i, j] = self[i, j] / (sigma_i * sigma_j)
+        return corr
