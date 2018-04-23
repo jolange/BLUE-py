@@ -1,6 +1,6 @@
 Python package implementing the Best Linear Unbiased Estimate (BLUE) method for combining measurements.
 
-Copyright 2018 Johannes Lange (see LICENSE.md)
+Copyright 2018 Johannes Lange (see LICENSE.txt)
 
 
 ## BLUE method
