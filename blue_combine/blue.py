@@ -28,11 +28,23 @@ class BLUE:
         self.alpha = E.I * U / (U.T * E.I * U)
         self.mean = y * self.alpha
         self.sigma = np.sqrt(self.alpha.T * E * self.alpha)
+        delta = y-self.mean
+        self.chi2 = delta*E.I*delta.T
+        self.Ndf = n-1  # number of degrees of freedom
 
     def weights(self):
         return self.alpha.T
 
+    def p_value(self):
+        from scipy import stats
+        return 1 - stats.chi2.cdf(self.chi2, self.Ndf)
+
     def __str__(self):
         string = 'weights = ' + str(self.weights()) + '\n'
-        string += 'result = %g +- %g' % (self.mean, self.sigma)
+        string += 'result = %g +- %g\n' % (self.mean, self.sigma)
+        string += 'chi2/Ndf = %.1f/%d' % (self.chi2, self.Ndf)
+        try:
+            string += ', p=%.3f' % self.p_value()
+        except (ModuleNotFoundError, ImportError):
+            string += ', p=no scipy.stats module found'
         return string
