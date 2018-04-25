@@ -34,4 +34,5 @@ setup(name='blue_combine',
       license='GPL-3.0',
       packages=['blue_combine'],
       python_requires='>=3',
-      install_requires=['numpy'])
+      install_requires=['numpy'],
+      extras_require={'p-value': ['scipy']})
