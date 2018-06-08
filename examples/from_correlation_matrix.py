@@ -31,4 +31,5 @@ print(errors)
 print('Covariance matrix:')
 print(E)
 
-print(blue.BLUE(measurements, E))
+comb = blue.BLUE(measurements, E)
+print(comb)
