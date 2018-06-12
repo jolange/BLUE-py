@@ -6,7 +6,12 @@ python:
 install:
   - pip install numpy
   - pip install scipy
+  - pip install pep8
   - pip install .
 script:
+  # E221 multiple spaces before operator
+  # E241 multiple spaces after ','
+  - pep8 blue_combine
+  - pep8 --ignore E221,E241 examples
   - pytest
 
