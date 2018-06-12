@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/jolange/BLUE-py.svg?branch=master)](https://travis-ci.org/jolange/BLUE-py)
+
 Python package implementing the Best Linear Unbiased Estimate (BLUE) method for combining measurements.
 
 Copyright 2018 Johannes Lange (see LICENSE.txt)
