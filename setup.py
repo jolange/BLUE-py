@@ -25,7 +25,7 @@ A description of the BLUE method as implemented in this package can be found in
 """
 
 setup(name='blue_combine',
-      version='0.2',
+      version='0.2dev',
       description='Python package for the Best Linear Unbiased Estimate (BLUE) method',
       long_description=long_desc,
       long_description_content_type='text/markdown',
